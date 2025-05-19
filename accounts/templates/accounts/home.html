@@ -1,9 +1,9 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Sınav Sonucu{% endblock %}
+{% block title %}Exam result{% endblock %}
 {% block content %}
-<h2>Sonuç</h2>
-<p>Toplam Soru: {{ total }}</p>
-<p>Doğru Sayısı: {{ correct }}</p>
-<p>Başarı Oranı: {{ correct|floatformat:0 }} / {{ total }}</p>
-<a href="{% url 'dashboard' %}" class="btn btn-primary">Panele Dön</a>
+<h2>Result</h2>
+<p>Total questions: {{ total }}</p>
+<p>Correct choices: {{ correct }}</p>
+<p>Success rate: {{ correct|floatformat:0 }} / {{ total }}</p>
+<a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
 {% endblock %}

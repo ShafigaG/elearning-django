@@ -1,12 +1,12 @@
-<h2>Mevcut Dersler</h2>
+<h2>Available Courses</h2>
 <ul>
   {% for course in courses %}
     <li>
       {{ course.title }}
       {% if course.id in enrolled_courses %}
-        <span>(Kayıtlısınız)</span>
+        <span>(Enrolled)</span>
       {% else %}
-        <a href="{% url 'enroll_course' course.id %}">Kayıt Ol</a>
+        <a href="{% url 'enroll_course' course.id %}">Enroll</a>
       {% endif %}
     </li>
   {% endfor %}

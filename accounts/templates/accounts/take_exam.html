@@ -1,6 +1,6 @@
 {% extends 'accounts/base.html' %}
 
-{% block title %}Sınavı Çöz{% endblock %}
+{% block title %}Take the exam{% endblock %}
 
 {% block content %}
 <h2>{{ exam.title }}</h2>
@@ -18,15 +18,15 @@
           {{ choice.text }}
         </label><br>
       {% empty %}
-        <p>Bu sorunun seçeneği yok.</p>
+        <p>There is no option for this question.</p>
       {% endfor %}
 
     </div>
     <hr>
   {% empty %}
-    <p>Bu sınavda soru bulunmamaktadır.</p>
+    <p>There are no questions in this exam.</p>
   {% endfor %}
 
-  <button type="submit" class="btn btn-primary">Sınavı Gönder</button>
+  <button type="submit" class="btn btn-primary">Send Exam</button>
 </form>
 {% endblock %}

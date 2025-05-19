@@ -1,32 +1,32 @@
 {% extends 'accounts/base.html' %}
 
-{% block title %}Soru Ekle{% endblock %}
+{% block title %}Add a question{% endblock %}
 
 {% block content %}
-<h2>{{ exam.title }} sınavına soru ekle</h2>
+<h2>Add a question for {{ exam.title }}</h2>
 
 <form method="post">
   {% csrf_token %}
   
   <div class="mb-3">
-    <label for="question">Soru:</label>
+    <label for="question">Question:</label>
     <input type="text" name="question" required class="form-control">
   </div>
 
   <div class="mb-3">
-    <label>Seçenekler:</label><br>
+    <label>Options:</label><br>
     {% for i in "1234" %}
-      <input type="text" name="choice" required placeholder="Şık {{ forloop.counter }}">
-      <input type="radio" name="correct_choice" value="{{ forloop.counter0 }}"> Doğru şık<br>
+      <input type="text" name="choice" required placeholder="Choice {{ forloop.counter }}">
+      <input type="radio" name="correct_choice" value="{{ forloop.counter0 }}"> Correct choice<br>
     {% endfor %}
   </div>
 
-  <button type="submit" name="submit_continue" class="btn btn-success">Soru Ekle ve Devam Et</button>
-  <button type="submit" name="submit_finish" class="btn btn-secondary">Bitir</button>
+  <button type="submit" name="submit_continue" class="btn btn-success">Add a question and continue</button>
+  <button type="submit" name="submit_finish" class="btn btn-secondary">Done</button>
 </form>
 
 <hr>
-<h3>Eklenen Sorular</h3>
+<h3>Added questions</h3>
 <ul>
   {% for question in questions %}
     <li>
@@ -38,7 +38,7 @@
       </ul>
     </li>
   {% empty %}
-    <li>Henüz soru eklenmedi.</li>
+    <li>No questions have been added yet.</li>
   {% endfor %}
 </ul>
 {% endblock %}

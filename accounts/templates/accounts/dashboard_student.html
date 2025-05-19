@@ -1,40 +1,40 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Öğrenci Paneli{% endblock %}
+{% block title %}Student dashboard{% endblock %}
 {% block content %}
 
-<h2>Kayıtlı Olduğun Dersler</h2>
+<h2>Your enrolled courses</h2>
 
 {% if enrollments %}
   {% for enrollment in enrollments %}
     <h4>{{ enrollment.course.title }}</h4>
     <p>{{ enrollment.course.description }}</p>
-    <h5>Sınavlar:</h5>
+    <h5>Exams:</h5>
     <ul>
       {% for exam in enrollment.course.exam_set.all %}
         <li>
           {{ exam.title }} - 
-          <a href="{% url 'take_exam' exam.id %}">Sınava Gir</a>
+          <a href="{% url 'take_exam' exam.id %}">Take exam</a>
         </li>
       {% empty %}
-        <li>Bu ders için sınav yok.</li>
+        <li>There is no exam for this course.</li>
       {% endfor %}
     </ul>
     <hr>
   {% endfor %}
 {% else %}
-  <p>Henüz hiçbir derse kayıtlı değilsiniz.</p>
+  <p>You are not enrolled in any courses yet.</p>
 {% endif %}
 
-<h2>Mevcut Dersler</h2>
+<h2>Available Courses</h2>
 
 <ul>
   {% for course in all_courses %}
     <li>
       <strong>{{ course.title }}</strong> - {{ course.description }}
       {% if course.id in enrolled_course_ids %}
-        <span style="color:green;">(Kayıtlısınız)</span>
+        <span style="color:green;">(Enrolled)</span>
       {% else %}
-        <a href="{% url 'enroll_course' course.id %}">Kayıt Ol</a>
+        <a href="{% url 'enroll_course' course.id %}">Enroll</a>
       {% endif %}
     </li>
   {% endfor %}
