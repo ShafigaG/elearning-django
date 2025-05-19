@@ -1,0 +1,11 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Sınav Ekle{% endblock %}
+{% block content %}
+<h2>{{ course.title }} dersi için yeni sınav ekle</h2>
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="title" class="form-control mb-2" placeholder="Sınav Başlığı" required>
+    <textarea name="description" class="form-control mb-2" placeholder="Sınav Açıklaması"></textarea>
+    <button class="btn btn-primary">Sınav Ekle</button>
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Öğrenci Paneli{% endblock %}
+{% block content %}
+
+<h2>Kayıtlı Olduğun Dersler</h2>
+
+{% if enrollments %}
+  {% for enrollment in enrollments %}
+    <h4>{{ enrollment.course.title }}</h4>
+    <p>{{ enrollment.course.description }}</p>
+    <h5>Sınavlar:</h5>
+    <ul>
+      {% for exam in enrollment.course.exam_set.all %}
+        <li>
+          {{ exam.title }} - 
+          <a href="{% url 'take_exam' exam.id %}">Sınava Gir</a>
+        </li>
+      {% empty %}
+        <li>Bu ders için sınav yok.</li>
+      {% endfor %}
+    </ul>
+    <hr>
+  {% endfor %}
+{% else %}
+  <p>Henüz hiçbir derse kayıtlı değilsiniz.</p>
+{% endif %}
+
+<h2>Mevcut Dersler</h2>
+
+<ul>
+  {% for course in all_courses %}
+    <li>
+      <strong>{{ course.title }}</strong> - {{ course.description }}
+      {% if course.id in enrolled_course_ids %}
+        <span style="color:green;">(Kayıtlısınız)</span>
+      {% else %}
+        <a href="{% url 'enroll_course' course.id %}">Kayıt Ol</a>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

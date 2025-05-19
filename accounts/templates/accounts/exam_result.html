@@ -1,0 +1,17 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Sınav Sonucu{% endblock %}
+
+{% block content %}
+<h2>Sınav Sonucu</h2>
+<p>Doğru Sayısı: {{ correct }} / {{ total }}</p>
+
+{% if correct == total %}
+  <p style="color: green;">Tebrikler! Tüm soruları doğru cevapladınız.</p>
+  <a href="{% url 'generate_certificate' exam.id %}" class="btn btn-success">🎓 Sertifikayı İndir</a>
+{% else %}
+  <p>Daha yüksek puan almak için tekrar deneyebilirsiniz.</p>
+{% endif %}
+
+<a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Ana Sayfaya Dön</a>
+{% endblock %}

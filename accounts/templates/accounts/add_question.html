@@ -1,0 +1,44 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Soru Ekle{% endblock %}
+
+{% block content %}
+<h2>{{ exam.title }} sınavına soru ekle</h2>
+
+<form method="post">
+  {% csrf_token %}
+  
+  <div class="mb-3">
+    <label for="question">Soru:</label>
+    <input type="text" name="question" required class="form-control">
+  </div>
+
+  <div class="mb-3">
+    <label>Seçenekler:</label><br>
+    {% for i in "1234" %}
+      <input type="text" name="choice" required placeholder="Şık {{ forloop.counter }}">
+      <input type="radio" name="correct_choice" value="{{ forloop.counter0 }}"> Doğru şık<br>
+    {% endfor %}
+  </div>
+
+  <button type="submit" name="submit_continue" class="btn btn-success">Soru Ekle ve Devam Et</button>
+  <button type="submit" name="submit_finish" class="btn btn-secondary">Bitir</button>
+</form>
+
+<hr>
+<h3>Eklenen Sorular</h3>
+<ul>
+  {% for question in questions %}
+    <li>
+      <strong>{{ question.text }}</strong><br>
+      <ul>
+        {% for choice in question.choices.all %}
+          <li>{{ choice.text }}{% if choice.is_correct %} ✅{% endif %}</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% empty %}
+    <li>Henüz soru eklenmedi.</li>
+  {% endfor %}
+</ul>
+{% endblock %}

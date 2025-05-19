@@ -1,0 +1,32 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Sınavı Çöz{% endblock %}
+
+{% block content %}
+<h2>{{ exam.title }}</h2>
+<p>{{ exam.description }}</p>
+
+<form method="post">
+  {% csrf_token %}
+  {% for question in exam.question_set.all %}
+    <div>
+      <p><strong>{{ forloop.counter }}. {{ question.text }}</strong></p>
+
+      {% for choice in question.choices.all %}  {# BURASI ÖNEMLİ #}
+        <label>
+          <input type="radio" name="{{ question.id }}" value="{{ choice.id }}" required>
+          {{ choice.text }}
+        </label><br>
+      {% empty %}
+        <p>Bu sorunun seçeneği yok.</p>
+      {% endfor %}
+
+    </div>
+    <hr>
+  {% empty %}
+    <p>Bu sınavda soru bulunmamaktadır.</p>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-primary">Sınavı Gönder</button>
+</form>
+{% endblock %}
