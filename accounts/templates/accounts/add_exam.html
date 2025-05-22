@@ -1,11 +1,31 @@
-{% extends 'accounts/base.html' %}
-{% block title %}Add an exam{% endblock %}
+{% extends 'accounts/base.html' %} //esas layoutdan miras alir
+{% block title %}İmtahan əlavə edin{% endblock %}
+
 {% block content %}
-<h2>Add an exam for {{ course.title }}</h2>
-<form method="post">
-    {% csrf_token %}
-    <input type="text" name="title" class="form-control mb-2" placeholder="Exam heading" required>
-    <textarea name="description" class="form-control mb-2" placeholder="Exam description"></textarea>
-    <button class="btn btn-primary">Add an exam</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-lg rounded-4 border-0">
+            <div class="card-body p-5">
+                <h2 class="mb-4 text-center text-primary fw-bold">{{ course.title }} üçün İmtahan Əlavə Et</h2>
+                
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-semibold">İmtahan başlığı</label>
+                        <input type="text" name="title" id="title" class="form-control form-control-lg" placeholder="Məsələn: Yekun İmtahan" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="description" class="form-label fw-semibold">İmtahan açıqlaması</label>
+                        <textarea name="description" id="description" class="form-control form-control-lg" rows="4" placeholder="İmtahan haqqında qısa məlumat..."></textarea>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary btn-lg">İmtahan əlavə et</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

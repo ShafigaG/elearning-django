@@ -1,44 +1,56 @@
 {% extends 'accounts/base.html' %}
 
-{% block title %}Add a question{% endblock %}
+{% block title %}Sual əlavə edin{% endblock %}
 
 {% block content %}
-<h2>Add a question for {{ exam.title }}</h2>
+<div class="card shadow-lg rounded-4 p-4">
+  <h2 class="mb-4 text-primary">{{ exam.title }} imtahanı üçün sual əlavə edin</h2>
 
-<form method="post">
-  {% csrf_token %}
-  
-  <div class="mb-3">
-    <label for="question">Question:</label>
-    <input type="text" name="question" required class="form-control">
-  </div>
+  <form method="post" class="mb-5">
+    {% csrf_token %}
 
-  <div class="mb-3">
-    <label>Options:</label><br>
-    {% for i in "1234" %}
-      <input type="text" name="choice" required placeholder="Choice {{ forloop.counter }}">
-      <input type="radio" name="correct_choice" value="{{ forloop.counter0 }}"> Correct choice<br>
-    {% endfor %}
-  </div>
+    <div class="mb-3">
+      <label for="question" class="form-label fw-bold">Sual</label>
+      <input type="text" name="question" required class="form-control" placeholder="Sualı daxil edin">
+    </div>
 
-  <button type="submit" name="submit_continue" class="btn btn-success">Add a question and continue</button>
-  <button type="submit" name="submit_finish" class="btn btn-secondary">Done</button>
-</form>
-
-<hr>
-<h3>Added questions</h3>
-<ul>
-  {% for question in questions %}
-    <li>
-      <strong>{{ question.text }}</strong><br>
-      <ul>
-        {% for choice in question.choices.all %}
-          <li>{{ choice.text }}{% if choice.is_correct %} ✅{% endif %}</li>
+    <div class="mb-3">
+      <label class="form-label fw-bold">Variantlar və düzgün cavab</label>
+      <div class="row g-2">
+        {% for i in "1234" %}
+        <div class="col-md-6 d-flex align-items-center">
+          <input type="text" name="choice" required class="form-control me-2" placeholder="Variant {{ forloop.counter }}">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="correct_choice" value="{{ forloop.counter0 }}" id="choice{{ forloop.counter0 }}">
+            <label class="form-check-label" for="choice{{ forloop.counter0 }}">Doğru</label>
+          </div>
+        </div>
         {% endfor %}
-      </ul>
-    </li>
-  {% empty %}
-    <li>No questions have been added yet.</li>
-  {% endfor %}
-</ul>
+      </div>
+    </div>
+
+    <div class="d-flex gap-3">
+      <button type="submit" name="submit_continue" class="btn btn-success px-4">Əlavə et və davam et</button>
+      <button type="submit" name="submit_finish" class="btn btn-outline-secondary px-4">Bitir</button>
+    </div>
+  </form>
+
+  <hr>
+
+  <h4 class="text-secondary mb-3">Əlavə edilmiş suallar</h4>
+  <ul class="list-group">
+    {% for question in questions %}
+      <li class="list-group-item">
+        <strong>{{ question.text }}</strong>
+        <ul class="mb-2">
+          {% for choice in question.choices.all %}
+            <li>{{ choice.text }} {% if choice.is_correct %}<span class="badge bg-success">Doğru</span>{% endif %}</li>
+          {% endfor %}
+        </ul>
+      </li>
+    {% empty %}
+      <li class="list-group-item text-muted">Hələ ki heç bir sual əlavə edilməyib.</li>
+    {% endfor %}
+  </ul>
+</div>
 {% endblock %}

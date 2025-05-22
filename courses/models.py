@@ -4,12 +4,22 @@ from users.models import User
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses')
-
+    video_url = models.URLField(blank=True, null=True)
+    teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='courses') #on_delete=models.CASCADE – müəllim silinərsə, ona aid kurslar da silinir
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
+
+    def get_embed_url(self):
+        if "watch?v=" in self.video_url:
+            return self.video_url.replace("watch?v=", "embed/")
+        elif "youtu.be/" in self.video_url:
+            video_id = self.video_url.split('/')[-1]
+            return f"https://www.youtube.com/embed/{video_id}"
+        return self.video_url  
+
+
 
 class Enrollment(models.Model):
     student = models.ForeignKey('users.User', on_delete=models.CASCADE, limit_choices_to={'role': 'student'})
@@ -17,7 +27,7 @@ class Enrollment(models.Model):
     enrolled_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('student', 'course')  # aynı öğrenci aynı derse iki kez kayıt olamaz
+        unique_together = ('student', 'course')  # eyni tələbə eyni kursa bir dəfə qoşula bilər
 
     def __str__(self):
         return f"{self.student.username} → {self.course.title}"
@@ -42,7 +52,7 @@ class Choice(models.Model):
     question = models.ForeignKey(
         Question,
         on_delete=models.CASCADE,
-        related_name='choices'  # <-- BUNU EKLE
+        related_name='choices' 
     )
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)

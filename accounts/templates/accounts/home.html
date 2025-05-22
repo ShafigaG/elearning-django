@@ -1,9 +1,69 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Exam result{% endblock %}
+
+{% block title %}Ana Səhifə - E-Öyrənmə Platforması{% endblock %}
+
 {% block content %}
-<h2>Result</h2>
-<p>Total questions: {{ total }}</p>
-<p>Correct choices: {{ correct }}</p>
-<p>Success rate: {{ correct|floatformat:0 }} / {{ total }}</p>
-<a href="{% url 'dashboard' %}" class="btn btn-primary">Back to Dashboard</a>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    body {
+        background: linear-gradient(to right,rgb(230, 237, 244),rgb(191, 207, 246));
+        color: blue;
+    }
+    .hero {
+        color: blue;
+        border-radius: 16px;
+        padding: 80px 30px;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+    }
+    .section-title {
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+</style>
+
+<div class="hero text-center mb-5">
+    <h1 class="display-4 fw-bold">Xoş gəlmisiniz!</h1>
+    <p class="lead">İnnovativ öyrənmə platformamız ilə biliyinizi yeni zirvələrə daşıyın.</p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'signup' %}" class="btn btn-warning btn-lg mt-3">İndi başla</a>
+    {% endif %}
+</div>
+
+<div class="container mb-5">
+    <h2 class="text-center section-title">Platformamızın Xüsusiyyətləri</h2>
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-laptop display-4 text-primary mb-3"></i>
+                    <h5 class="card-title">Onlayn Kurslar</h5>
+                    <p class="card-text">Fərqli sahələr üzrə yüksək keyfiyyətli dərslər sizi gözləyir.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card border-0 shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-award-fill display-4 text-warning mb-3"></i>
+                    <h5 class="card-title">Sertifikatlar</h5>
+                    <p class="card-text">İmtahanları tamamlayaraq rəsmi sertifikat əldə edin.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mb-5">
+    <h2 class="mb-3">Hazırsınız?</h2>
+    <p class="mb-4">Ən populyar kurslara indi başlayın və inkişafınıza ilk addımı atın.</p>
+    <a href="{% url 'signup' %}" class="btn btn-primary btn-lg">İndi qeydiyyatdan keçin</a>
+</div>
+
+<div class="text-center text-muted small mt-5">
+    <p>&copy; 2025 E-Öyrənmə Platforması. Bütün hüquqlar qorunur.</p>
+</div>
+
 {% endblock %}

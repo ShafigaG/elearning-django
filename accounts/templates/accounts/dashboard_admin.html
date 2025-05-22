@@ -1,14 +1,59 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Admin Dashboard{% endblock %}
+{% block title %}Admin idarəetmə paneli{% endblock %}
+
 {% block content %}
 
-<h2>Users</h2>
+<style>
+    body {
+        background: linear-gradient(to right, #e3f2fd, #f1f8ff);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h2 {
+        color: #0d6efd;
+        font-weight: 700;
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+
+    table {
+        background-color: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    th {
+        background-color: #0d6efd;
+        color: white;
+        font-weight: 600;
+    }
+
+    td, th {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+
+    .table-striped tbody tr:nth-of-type(odd) {
+        background-color: #f2f9ff;
+    }
+
+    .table-bordered {
+        border: 1px solid #dee2e6;
+    }
+
+    .table-bordered th, .table-bordered td {
+        border: 1px solid #dee2e6;
+    }
+</style>
+
+<h2>İstifadəçilər</h2>
 <table class="table table-bordered">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role</th>
+            <th>İstifadəçi adı</th>
+            <th>E-poçt</th>
+            <th>Rol</th>
         </tr>
     </thead>
     <tbody>
@@ -24,13 +69,13 @@
 
 <hr>
 
-<h2>Enrollments</h2>
+<h2>Qeydiyyat əməliyyatları</h2>
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Student</th>
-            <th>Course</th>
-            <th>Date</th>
+            <th>Tələbə</th>
+            <th>Kurs</th>
+            <th>Tarix</th>
         </tr>
     </thead>
     <tbody>

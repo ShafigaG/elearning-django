@@ -1,17 +1,38 @@
 {% extends 'accounts/base.html' %}
 
-{% block title %}Exam Result{% endblock %}
+{% block title %}İmtahan Nəticəsi{% endblock %}
 
 {% block content %}
-<h2>Exam Result</h2>
-<p>Correct Choices: {{ correct }} / {{ total }}</p>
+<div class="card shadow p-4 mx-auto" style="max-width: 600px;">
+  <h2 class="text-center text-primary mb-4">📊 İmtahan Nəticəsi</h2>
 
-{% if correct == total %}
-  <p style="color: green;">Congratulations! You answered all the questions correctly.</p>
-  <a href="{% url 'generate_certificate' exam.id %}" class="btn btn-success">🎓 Download the certificate</a>
-{% else %}
-  <p>You can try again to get a higher score.</p>
-{% endif %}
+  <ul class="list-group list-group-flush mb-3">
+    <li class="list-group-item d-flex justify-content-between">
+      <strong>Doğru cavablar:</strong> <span>{{ correct }} / {{ total }}</span>
+    </li>
+    <li class="list-group-item d-flex justify-content-between">
+      <strong>Uğur dərəcəsi:</strong> 
+      <span>{{ correct|floatformat:0 }} / {{ total }}</span>
+    </li>
+  </ul>
 
-<a href="{% url 'dashboard' %}" class="btn btn-primary mt-3">Back to Home page</a>
+  {% if correct == total %}
+    <div class="alert alert-success text-center">
+      🎉 <strong>Təbrik edirik!</strong> Bütün suallara düzgün cavab verdiniz.
+    </div>
+    <div class="d-grid gap-2">
+      <a href="{% url 'generate_certificate' exam.id %}" class="btn btn-success btn-lg">
+        🎓 Sertifikatı yüklə
+      </a>
+    </div>
+  {% else %}
+    <div class="alert alert-warning text-center">
+      Daha yüksək xal əldə etmək üçün yenidən cəhd edə bilərsiniz.
+    </div>
+  {% endif %}
+
+  <div class="text-center mt-4">
+    <a href="{% url 'dashboard' %}" class="btn btn-outline-primary">Əsas səhifəyə qayıt</a>
+  </div>
+</div>
 {% endblock %}

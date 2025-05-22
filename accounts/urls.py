@@ -1,3 +1,4 @@
+#istifadecinin brauzerde daxil etdiyi URL-ləri müvafiq view-lara yönləndirmək üçün URL konfiqurasiyası
 from django.urls import path
 from . import views
 from django.contrib.auth.decorators import login_required
@@ -15,4 +16,5 @@ urlpatterns = [
     path('exam/<int:exam_id>/add-question/', login_required(views.add_question_view, login_url='login'), name='add_question'),
     path('exam/<int:exam_id>/take/', login_required(views.take_exam_view, login_url='login'), name='take_exam'),
     path('exam/<int:exam_id>/certificate/', login_required(views.generate_certificate, login_url='login'), name='generate_certificate'),
+    path('courses/<int:course_id>/', views.course_detail, name='course_detail'),
 ]

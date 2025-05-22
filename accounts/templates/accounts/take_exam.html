@@ -1,32 +1,47 @@
 {% extends 'accounts/base.html' %}
 
-{% block title %}Take the exam{% endblock %}
+{% block title %}İmtahan{% endblock %}
 
 {% block content %}
-<h2>{{ exam.title }}</h2>
-<p>{{ exam.description }}</p>
+<div class="container">
+  <div class="card shadow p-4">
+    <h2 class="text-center text-primary mb-3">{{ exam.title }}</h2>
+    <p class="text-muted text-center">{{ exam.description }}</p>
 
-<form method="post">
-  {% csrf_token %}
-  {% for question in exam.question_set.all %}
-    <div>
-      <p><strong>{{ forloop.counter }}. {{ question.text }}</strong></p>
+    <form method="post">
+      {% csrf_token %}
+      
+      {% for question in exam.question_set.all %}
+        <div class="mb-4">
+          <p class="fw-semibold">{{ forloop.counter }}. {{ question.text }}</p>
 
-      {% for choice in question.choices.all %}  {# BURASI ÖNEMLİ #}
-        <label>
-          <input type="radio" name="{{ question.id }}" value="{{ choice.id }}" required>
-          {{ choice.text }}
-        </label><br>
+          <div class="list-group">
+            {% for choice in question.choices.all %}
+              <label class="list-group-item">
+                <input 
+                  class="form-check-input me-1" 
+                  type="radio" 
+                  name="{{ question.id }}" 
+                  value="{{ choice.id }}" 
+                  required>
+                {{ choice.text }}
+              </label>
+            {% empty %}
+              <p class="text-danger">Bu sual üçün heç bir seçim yoxdur.</p>
+            {% endfor %}
+          </div>
+        </div>
+        <hr>
       {% empty %}
-        <p>There is no option for this question.</p>
+        <div class="alert alert-warning">
+          Bu imtahanda hələ ki sual yoxdur.
+        </div>
       {% endfor %}
 
-    </div>
-    <hr>
-  {% empty %}
-    <p>There are no questions in this exam.</p>
-  {% endfor %}
-
-  <button type="submit" class="btn btn-primary">Send Exam</button>
-</form>
+      <div class="text-center mt-4">
+        <button type="submit" class="btn btn-success btn-lg px-5">📤 İmtahanı göndər</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

@@ -6,4 +6,4 @@ from rest_framework.permissions import IsAdminUser
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [IsAdminUser]  # sadece admin görebilir
+    permission_classes = [IsAdminUser]  # sadece admin kullanıcılar erişebilir

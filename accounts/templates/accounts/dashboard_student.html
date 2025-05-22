@@ -1,40 +1,109 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Student dashboard{% endblock %}
+{% block title %}Tələbə idarəetmə paneli{% endblock %}
 {% block content %}
 
-<h2>Your enrolled courses</h2>
+<style>
+    body {
+        background: linear-gradient(to right, #e3f2fd, #f9fbff);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    h2 {
+        color: #0d6efd;
+        font-weight: 700;
+        margin-top: 30px;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        color: #0a58ca;
+        margin-bottom: 5px;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+        margin-top: 10px;
+        color: #084298;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: #333;
+    }
+
+    ul {
+        list-style: none;
+        padding-left: 0;
+    }
+
+    li {
+        padding: 8px 12px;
+        background-color: #f2f9ff;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    li a {
+        color: #0d6efd;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    li a:hover {
+        text-decoration: underline;
+    }
+
+    hr {
+        border-top: 1px solid #dee2e6;
+        margin: 30px 0;
+    }
+
+    .registered {
+        color: green;
+        font-weight: 600;
+    }
+</style>
+
+<h2>Qeydiyyatdan keçdiyin kurslar</h2>
 
 {% if enrollments %}
   {% for enrollment in enrollments %}
     <h4>{{ enrollment.course.title }}</h4>
     <p>{{ enrollment.course.description }}</p>
-    <h5>Exams:</h5>
+
+    <h5>İmtahanlar:</h5>
     <ul>
       {% for exam in enrollment.course.exam_set.all %}
         <li>
-          {{ exam.title }} - 
-          <a href="{% url 'take_exam' exam.id %}">Take exam</a>
+          {{ exam.title }}
+          <a href="{% url 'take_exam' exam.id %}">İmtahana gir</a>
         </li>
       {% empty %}
-        <li>There is no exam for this course.</li>
+        <li>Bu kurs üçün imtahan yoxdur.</li>
       {% endfor %}
     </ul>
     <hr>
   {% endfor %}
 {% else %}
-  <p>You are not enrolled in any courses yet.</p>
+  <p>Hələ ki heç bir kursda qeydiyyatdan keçməmisiniz.</p>
 {% endif %}
 
-<h2>Available Courses</h2>
+<h2>Mövcud kurslar</h2>
 
 <ul>
   {% for course in all_courses %}
     <li>
-      <strong>{{ course.title }}</strong> - {{ course.description }}
+      <a href="{% url 'course_detail' course.id %}">
+        <strong>{{ course.title }}</strong>
+      </a> – {{ course.description }}
       {% if course.id in enrolled_course_ids %}
-        <span style="color:green;">(Enrolled)</span>
+        <span class="registered">(Qeydiyyatdan keçilib)</span>
       {% else %}
-        <a href="{% url 'enroll_course' course.id %}">Enroll</a>
+        <a href="{% url 'enroll_course' course.id %}">Qeydiyyatdan keç</a>
       {% endif %}
     </li>
   {% endfor %}

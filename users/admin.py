@@ -4,11 +4,11 @@ from .models import User
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = BaseUserAdmin.fieldsets + (
-        ("Rol Bilgisi", {'fields': ('role',)}),
+        ("Rol Məlumatı", {'fields': ('role',)}),
     )
 
     add_fieldsets = BaseUserAdmin.add_fieldsets + (
-        ("Rol Bilgisi", {'fields': ('role',)}),
+        ("Rol Məlumatı", {'fields': ('role',)}),
     )
 
     list_display = ('username', 'email', 'first_name', 'last_name', 'role', 'is_staff')

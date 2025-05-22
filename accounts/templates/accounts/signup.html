@@ -1,16 +1,85 @@
 {% extends 'accounts/base.html' %}
-{% block title %}Sign Up{% endblock %}
+{% block title %}Qeydiyyat{% endblock %}
+
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username" class="form-control mb-2" required>
-    <input type="password" name="password" placeholder="Password" class="form-control mb-2" required>
-    <select name="role" class="form-control mb-2">
-        <option value="student">Student</option>
-        <option value="teacher">Teacher</option>
-        <option value="admin">Admin</option>
-    </select>
-    <button class="btn btn-success">Sign Up</button>
-</form>
+
+<style>
+    body {
+        background: linear-gradient(to right, #e3f2fd, #f1f8ff);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .signup-container {
+        max-width: 450px;
+        margin: 60px auto;
+        background: #ffffff;
+        padding: 35px;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .signup-container h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-weight: 700;
+        color: #0d6efd;
+    }
+
+    .signup-container .form-control {
+        padding: 12px 16px;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        transition: border-color 0.2s ease;
+    }
+
+    .signup-container .form-control:focus {
+        border-color: #0d6efd;
+        box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25);
+        outline: none;
+    }
+
+    .signup-container select.form-control {
+        background-color: #fff;
+        color: #333;
+    }
+
+    .signup-container button {
+        width: 100%;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        background-color: #198754;
+        border: none;
+    }
+
+    .signup-container button:hover {
+        background-color: #157347;
+    }
+</style>
+
+<div class="signup-container">
+    <h2>Qeydiyyatdan keç</h2>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="İstifadəçi adı" class="form-control mb-3" required>
+        <input type="password" name="password" placeholder="Şifrə" class="form-control mb-3" required>
+        <select name="role" class="form-control mb-3">
+            <option value="student">Tələbə</option>
+            <option value="teacher">Müəllim</option>
+        </select>
+        <button class="btn btn-success">Qeydiyyatdan keç</button>
+    </form>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const inputs = document.querySelectorAll(".form-control");
+        inputs.forEach(input => {
+            input.addEventListener("focus", () => input.style.backgroundColor = "#f0f9ff");
+            input.addEventListener("blur", () => input.style.backgroundColor = "white");
+        });
+    });
+</script>
+
 {% endblock %}
